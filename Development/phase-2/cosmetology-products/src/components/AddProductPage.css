@@ -1,0 +1,43 @@
+/* src/components/AddProductPage.css */
+.add-product-container {
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .add-product-container h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .add-product-container form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .add-product-container form div {
+    margin-bottom: 15px;
+  }
+  
+  .add-product-container form label {
+    font-size: 18px;
+    margin-bottom: 8px;
+    display: block;
+  }
+  
+  .add-product-container form input[type="text"],
+  .add-product-container form input[type="checkbox"] {
+    font-size: 16px;
+  }
+  
+  .add-product-container form button {
+    align-self: center;
+    padding: 15px 25px;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  

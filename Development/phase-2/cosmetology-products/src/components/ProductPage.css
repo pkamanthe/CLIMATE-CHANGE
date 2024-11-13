@@ -1,72 +1,135 @@
+/* General Button Styles */
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    display: inline-block;
+    margin: 10px 0;
+}
+
+/* Background Colors */
+body {
+    background: linear-gradient(120deg, #f0f4c3, #b2dfdb); /* Light pastel background gradient */
+}
+
+/* Default Style for Buttons */
+button {
+    background-color: #ff6f61; /* Primary button color */
+    color: white;
+}
+
+/* Hover and Active States */
+button:hover {
+    background-color: #e65c4e;
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: translateY(0);
+    background-color: #e74c3c;
+}
+
+/* Edit Button */
+button.edit-btn {
+    background-color: #f39c12;
+}
+
+button.edit-btn:hover {
+    background-color: #e67e22;
+}
+
+button.edit-btn:active {
+    background-color: #d35400;
+}
+
+/* Delete Button */
+button.delete-btn {
+    background-color: #c0392b;
+}
+
+button.delete-btn:hover {
+    background-color: #e74c3c;
+}
+
+button.delete-btn:active {
+    background-color: #b0322a;
+}
+
+/* Filter Buttons */
+.filter-buttons {
+    text-align: center;
+}
+
+.filter-buttons button {
+    background-color: #3498db;
+    color: white;
+    margin: 5px;
+    padding: 8px 15px;
+    font-size: 14px;
+    border-radius: 8px;
+}
+
+.filter-buttons button:hover {
+    background-color: #2980b9;
+}
+
+.filter-buttons button:active {
+    background-color: #1d6c8c;
+}
+
+/* Add Product Button */
+.add-product-form button {
+    background-color: #2ecc71;
+    color: white;
+    display: block;
+    margin: 20px auto;
+}
+
+.add-product-form button:hover {
+    background-color: #27ae60;
+}
+
+.add-product-form button:active {
+    background-color: #16a085;
+}
+
+/* Button Disabled State */
+button:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+}
+
+/* Center-align all buttons in the page */
 .product-page {
-  padding: 20px;
-  font-family: Arial, sans-serif;
+    text-align: center;
 }
 
-h2 {
-  text-align: center;
-  color: #333;
+.product-page button {
+    margin: 10px auto;
 }
 
-.search-bar {
-  text-align: center;
-  margin-bottom: 20px;
+/* Out of Stock Button */
+button.out-of-stock {
+    background-color: #e74c3c;
+    color: white;
 }
 
-.search-bar input {
-  padding: 10px;
-  width: 80%;
-  max-width: 400px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+button.out-of-stock:hover {
+    background-color: #c0392b;
 }
 
-.product-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
+button.out-of-stock:active {
+    background-color: #b0322a;
 }
 
-.product-item {
-  background: #f9f9f9;
-  border: 1px solid #ddd;
-  padding: 10px;
-  width: 200px;
-  text-align: center;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-}
-
-.product-item:hover {
-  transform: scale(1.05);
-}
-
-.product-image {
-  width: 100%;
-  height: auto;
-  border-radius: 5px;
-}
-
-.product-details h3 {
-  font-size: 18px;
-  margin: 10px 0;
-  color: #333;
-}
-
-.price {
-  font-size: 16px;
-  color: #28a745;
-  font-weight: bold;
-}
-
-.in-stock {
-  color: green;
-}
-
-.out-of-stock {
-  color: red;
-  font-weight: bold;
+/* CSS for Image resizing */
+img {
+    width: 150px; 
+    height: 150px; 
+    object-fit: cover; 
+    margin: 10px; 
 }

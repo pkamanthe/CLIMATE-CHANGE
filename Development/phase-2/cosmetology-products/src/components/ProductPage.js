@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './ProductPage.css';
 
 function ProductPage() {
-  // Sample products data
   const [products, setProducts] = useState([
     { id: 1, name: 'beauty blender', photo: '/images/beauty blender.jpg', price: 17.09, inStock: true },
     { id: 2, name: 'eye lashes', photo: '/images/eye lashes.jpg', price: 5.99, inStock: false },
@@ -19,9 +18,9 @@ function ProductPage() {
     price: '',
     inStock: true,
   });
-  const [filter, setFilter] = useState('all'); // 'all', 'inStock', 'outOfStock'
+  const [filter, setFilter] = useState('all');
+  const [editProduct, setEditProduct] = useState(null); // For editing product
 
-  // Toggle stock status
   const toggleStockStatus = (id) => {
     setProducts((prevProducts) =>
       prevProducts.map((product) =>
@@ -30,12 +29,10 @@ function ProductPage() {
     );
   };
 
-  // Handle search bar input
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
   };
 
-  // Handle form inputs for new product
   const handleChange = (event) => {
     const { name, value } = event.target;
     setNewProduct((prevProduct) => ({
@@ -44,11 +41,8 @@ function ProductPage() {
     }));
   };
 
-  // Handle add product
   const handleAddProduct = (event) => {
     event.preventDefault();
-
-    // Check if all fields are filled
     if (newProduct.name && newProduct.photo && newProduct.price) {
       const newProductId = products.length + 1;
       const newProductData = {
@@ -56,23 +50,35 @@ function ProductPage() {
         id: newProductId,
         price: parseFloat(newProduct.price),
       };
-
-      // Update the products state with the new product
       setProducts((prevProducts) => [...prevProducts, newProductData]);
-
-      // Reset the new product form
-      setNewProduct({
-        name: '',
-        photo: '',
-        price: '',
-        inStock: true,
-      });
+      setNewProduct({ name: '', photo: '', price: '', inStock: true });
     } else {
       alert('Please fill in all fields');
     }
   };
 
-  // Filter products by search term and stock status
+  const handleDeleteProduct = (id) => {
+    setProducts((prevProducts) => prevProducts.filter((product) => product.id !== id));
+  };
+
+  const handleEditProduct = (product) => {
+    setEditProduct(product);
+  };
+
+  const handleUpdateProduct = (event) => {
+    event.preventDefault();
+    if (editProduct.name && editProduct.photo && editProduct.price) {
+      setProducts((prevProducts) =>
+        prevProducts.map((product) =>
+          product.id === editProduct.id ? { ...editProduct, price: parseFloat(editProduct.price) } : product
+        )
+      );
+      setEditProduct(null); // Reset the edit form
+    } else {
+      alert('Please fill in all fields');
+    }
+  };
+
   const filteredProducts = products
     .filter((product) =>
       product.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -80,7 +86,7 @@ function ProductPage() {
     .filter((product) => {
       if (filter === 'inStock') return product.inStock;
       if (filter === 'outOfStock') return !product.inStock;
-      return true; // 'all' filter shows all products
+      return true;
     });
 
   return (
@@ -97,7 +103,7 @@ function ProductPage() {
         />
       </div>
 
-      {/* Stock Filter Buttons */}
+      {/* Filter Buttons */}
       <div className="filter-buttons">
         <button onClick={() => setFilter('all')}>All</button>
         <button onClick={() => setFilter('inStock')}>In Stock</button>
@@ -121,15 +127,56 @@ function ProductPage() {
                 <button onClick={() => toggleStockStatus(product.id)}>
                   {product.inStock ? 'Out of Stock' : 'In Stock'}
                 </button>
+
+                {/* Edit and Delete buttons */}
+                <button onClick={() => handleEditProduct(product)}>Edit</button>
+                <button onClick={() => handleDeleteProduct(product.id)}>Delete</button>
               </div>
             </div>
           ))
         )}
       </div>
 
-      <h3>Add New Product</h3>
+      {/* Edit Product Form */}
+      {editProduct && (
+        <div className="edit-product-form">
+          <h3>Edit Product</h3>
+          <form onSubmit={handleUpdateProduct}>
+            <input
+              type="text"
+              name="name"
+              placeholder="Product Name"
+              value={editProduct.name}
+              onChange={(e) => setEditProduct({ ...editProduct, name: e.target.value })}
+            />
+            <input
+              type="text"
+              name="photo"
+              placeholder="Product Image URL"
+              value={editProduct.photo}
+              onChange={(e) => setEditProduct({ ...editProduct, photo: e.target.value })}
+            />
+            <input
+              type="number"
+              name="price"
+              placeholder="Price"
+              value={editProduct.price}
+              onChange={(e) => setEditProduct({ ...editProduct, price: e.target.value })}
+            />
+            <select
+              name="inStock"
+              value={editProduct.inStock}
+              onChange={(e) => setEditProduct({ ...editProduct, inStock: e.target.value === 'true' })}
+            >
+              <option value={true}>In Stock</option>
+              <option value={false}>Out of Stock</option>
+            </select>
+            <button type="submit">Update Product</button>
+          </form>
+        </div>
+      )}
 
-      {/* Add new product form */}
+      <h3>Add New Product</h3>
       <form onSubmit={handleAddProduct} className="add-product-form">
         <input
           type="text"

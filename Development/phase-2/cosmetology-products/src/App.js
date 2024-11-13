@@ -1,18 +1,23 @@
-// src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import HomePage from './components/HomePage';
-import ProductPage from './components/ProductPage';
-import AddProductPage from './components/AddProductPage';
+import Home from './components/Home';
+import About from './components/About';
+import Contact from './components/Contact';
+import Navbar from './components/Navbar';
+import ProductPage from './components/ProductPage'; // Import ProductPage component
 
 function App() {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/product" element={<ProductPage />} />
-        <Route path="/add-product" element={<AddProductPage />} />
-      </Routes>
+      <Navbar />
+      <div className="app-content">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/products" element={<ProductPage />} /> {/* Route for ProductPage */}
+        </Routes>
+      </div>
     </Router>
   );
 }

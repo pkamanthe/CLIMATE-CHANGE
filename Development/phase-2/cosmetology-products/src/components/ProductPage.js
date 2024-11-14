@@ -18,8 +18,8 @@ function ProductPage() {
     price: '',
     inStock: true,
   });
-  const [filter, setFilter] = useState('all');
-  const [editProduct, setEditProduct] = useState(null); // For editing product
+  const [filter, setFilter] = useState('all'); // Default to 'all'
+  const [editProduct, setEditProduct] = useState(null);
 
   const toggleStockStatus = (id) => {
     setProducts((prevProducts) =>
@@ -73,12 +73,13 @@ function ProductPage() {
           product.id === editProduct.id ? { ...editProduct, price: parseFloat(editProduct.price) } : product
         )
       );
-      setEditProduct(null); // Reset the edit form
+      setEditProduct(null);
     } else {
       alert('Please fill in all fields');
     }
   };
 
+  // Filter products based on search term and filter
   const filteredProducts = products
     .filter((product) =>
       product.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -103,11 +104,18 @@ function ProductPage() {
         />
       </div>
 
-      {/* Filter Buttons */}
-      <div className="filter-buttons">
-        <button onClick={() => setFilter('all')}>All</button>
-        <button onClick={() => setFilter('inStock')}>In Stock</button>
-        <button onClick={() => setFilter('outOfStock')}>Out of Stock</button>
+      {/* Dropdown Filter */}
+      <div className="filter-dropdown">
+        <label htmlFor="filter">Filter by Stock Status: </label>
+        <select
+          id="filter"
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+        >
+          <option value="all">All</option>
+          <option value="inStock">In Stock</option>
+          <option value="outOfStock">Out of Stock</option>
+        </select>
       </div>
 
       {/* Product list */}
@@ -127,8 +135,6 @@ function ProductPage() {
                 <button onClick={() => toggleStockStatus(product.id)}>
                   {product.inStock ? 'Out of Stock' : 'In Stock'}
                 </button>
-
-                {/* Edit and Delete buttons */}
                 <button onClick={() => handleEditProduct(product)}>Edit</button>
                 <button onClick={() => handleDeleteProduct(product.id)}>Delete</button>
               </div>
@@ -177,7 +183,7 @@ function ProductPage() {
       )}
 
       <h3>Add New Product</h3>
-      <form onSubmit={handleAddProduct} className="add-product-form">
+      <form onSubmit={handleAddProduct} className="add-product-form-horizontal">
         <input
           type="text"
           name="name"
